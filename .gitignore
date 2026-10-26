@@ -84,6 +84,7 @@ scratch/
 # ------------------------------------------------------------------------------
 # Internal project guidelines and workflow documents
 AGENTS.md
+CHROMEWEBSTORE.md
 docs/CHANGELOG.md
 docs/HANDOFF-*.md
 docs/mvp_and_iterations.md
