@@ -96,14 +96,18 @@
       this.rail.className = 'pp-rail';
       this.rail.setAttribute('aria-label', '拾取篮（已折叠）');
       this.rail.innerHTML = `
+        <span class="pp-rail-grip" title="拖动折叠栏">${icon('grip', 14)}</span>
         <button class="pp-btn pp-btn-sm pp-btn-icon pp-btn-ghost" data-act="expand" aria-label="展开拾取篮" title="展开拾取篮">${icon('chevronLeft', 16)}</button>
         <span class="pp-count" data-ref="rail-count">0</span>
         <span class="pp-rail-label" aria-hidden="true">拾取篮</span>
         <div class="pp-rail-list" data-ref="rail-list"></div>
+        <span class="pp-rail-more" data-ref="rail-more" hidden></span>
         <span class="pp-rail-sep"></span>
         <button class="pp-btn pp-btn-sm pp-btn-icon pp-btn-primary" data-act="copy" aria-label="复制 AI Prompt" title="复制 AI Prompt（Enter）">${icon('copy', 16)}</button>
       `;
       this.rail.addEventListener('click', guard(event => this.onRailClick(event), 'panel.railClick'));
+      this.rail.querySelector('[data-ref="rail-list"]').addEventListener('scroll', guard(() => this.updateRailMore(), 'panel.railScroll'));
+      this.makeDraggable(this.rail, this.rail.querySelector('.pp-rail-grip'));
 
       root.append(this.panel, this.rail, this.toolbar);
     }
@@ -247,12 +251,28 @@
       countEl.classList.toggle('has-items', count > 0);
       countEl.setAttribute('aria-label', `拾取篮 ${count} 个元素`);
       this.rail.querySelector('[data-act="copy"]').disabled = count === 0;
-      this.rail.querySelector('[data-ref="rail-list"]').innerHTML = state.items.map((item, idx) => {
+      const list = this.rail.querySelector('[data-ref="rail-list"]');
+      const grew = count > (this.railCount || 0);
+      this.railCount = count;
+      list.innerHTML = state.items.map((item, idx) => {
         const data = item.data;
         const label = `<${data.tag}> ${shortText(data.text || '', 20)}`.trim();
         const isFrame = data.context && data.context.isIframe;
         return `<button class="pp-rail-item${isFrame ? ' is-frame' : ''}" data-id="${escapeHTML(item.id)}" title="定位 ${idx + 1}：${escapeHTML(label)}" aria-label="定位第 ${idx + 1} 个元素 ${escapeHTML(label)}">${idx + 1}</button>`;
       }).join('');
+      // 新加入元素时滚到末尾，让最新序号可见
+      if (grew) list.scrollTop = list.scrollHeight;
+      this.updateRailMore();
+    }
+
+    // 列表下方提示未显示的剩余数量
+    updateRailMore() {
+      const list = this.rail.querySelector('[data-ref="rail-list"]');
+      const more = this.rail.querySelector('[data-ref="rail-more"]');
+      const hiddenBelow = list.scrollHeight - list.clientHeight - list.scrollTop > 2;
+      const hiddenAbove = list.scrollTop > 2;
+      more.hidden = !hiddenBelow && !hiddenAbove;
+      more.textContent = hiddenBelow ? '▾ 更多' : '▴ 更多';
     }
 
     onRailClick(event) {
@@ -343,6 +363,7 @@
         start = { x: event.clientX, y: event.clientY, left: rect.left, top: rect.top };
         el.style.transform = 'none';
         el.style.bottom = 'auto';
+        el.style.right = 'auto';
         el.style.left = `${rect.left}px`;
         el.style.top = `${rect.top}px`;
         window.addEventListener('pointermove', onMove, true);

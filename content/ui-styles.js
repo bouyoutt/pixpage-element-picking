@@ -244,13 +244,29 @@
       font-size: 12px; font-weight: 600; color: var(--pp-fg-subtle);
       padding: 2px 0;
     }
-    .pp-rail-list {
-      flex: 1 1 auto; min-height: 0; overflow-y: auto;
-      display: flex; flex-direction: column; align-items: center; gap: 4px;
-      padding: 2px 0; scrollbar-width: none;
+    .pp-rail-grip {
+      display: flex; align-items: center; justify-content: center;
+      width: 32px; height: 14px; color: var(--pp-fg-muted); cursor: grab; touch-action: none;
+      flex-shrink: 0;
     }
-    .pp-rail-list::-webkit-scrollbar { display: none; }
+    .pp-rail-grip svg { transform: rotate(90deg); }
+    .pp-rail-grip:active { cursor: grabbing; }
+    /* 列表最多显示 6 项（6×28 + 5×4 + 上下 padding），超出部分滚动，避免折叠栏随元素数量无限加长 */
+    .pp-rail-list {
+      flex: 0 1 auto; min-height: 0; max-height: 192px; overflow-y: auto;
+      display: flex; flex-direction: column; align-items: center; gap: 4px;
+      padding: 2px 0;
+      /* 两侧对称预留滚动条槽位，滚动条出现时内容保持居中不偏移 */
+      scrollbar-gutter: stable both-edges;
+    }
+    .pp-rail-list::-webkit-scrollbar { width: 3px; }
+    .pp-rail-list::-webkit-scrollbar-thumb { background: var(--pp-border); border-radius: 2px; }
+    .pp-rail-more {
+      font-family: var(--pp-mono); font-size: 11px; color: var(--pp-fg-subtle); flex-shrink: 0;
+    }
+    .pp-rail-more[hidden] { display: none; }
     .pp-rail-item {
+      flex-shrink: 0;
       width: 32px; height: 28px; border: none; border-radius: 6px;
       background: var(--pp-selected); color: var(--pp-selected-ink);
       font-family: var(--pp-mono); font-size: 12px; font-weight: 700;
