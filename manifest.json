@@ -1,0 +1,62 @@
+{
+  "manifest_version": 3,
+  "name": "PixPage 智能元素拾取助手",
+  "version": "0.3.0",
+  "description": "交互式页面元素高精度拾取与 AI 协同定位助手，一键提取复合选择器、DOM属性、几何坐标并格式化为 AI 排查 Prompt。",
+  "icons": {
+    "16": "icons/icon-16.png",
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
+  },
+  "permissions": [
+    "activeTab",
+    "clipboardWrite",
+    "scripting",
+    "storage"
+  ],
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_title": "PixPage 智能元素拾取助手",
+    "default_icon": {
+      "16": "icons/icon-16.png",
+      "48": "icons/icon-48.png",
+      "128": "icons/icon-128.png"
+    }
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "commands": {
+    "toggle-picker": {
+      "suggested_key": {
+        "default": "Alt+Shift+X",
+        "mac": "Alt+Shift+X"
+      },
+      "description": "开启或关闭元素拾取模式"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "all_frames": true,
+      "match_about_blank": true,
+      "js": [
+        "content/runtime.js",
+        "content/dom-utils.js",
+        "content/selector.js",
+        "content/extractor.js",
+        "content/prompt-builder.js",
+        "content/relink.js",
+        "content/ui-styles.js",
+        "content/ui-shadow.js",
+        "content/session.js",
+        "content/panel.js",
+        "content/inspector.js",
+        "content/content.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ]
+}

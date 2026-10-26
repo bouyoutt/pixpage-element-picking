@@ -1,0 +1,84 @@
+/* popup.css - 与页面内工具栏一致的深色开发者工具风格 */
+:root {
+  --bg: #0f172a;
+  --surface: #1b2336;
+  --border: #334155;
+  --border-strong: #475569;
+  --fg: #f8fafc;
+  --fg-muted: #94a3b8;
+  --primary: #3b82f6;
+  --primary-hover: #2563eb;
+  --selected: #22c55e;
+  --danger: #f87171;
+  --ring: #93c5fd;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  width: 320px;
+  background: var(--bg);
+  color: var(--fg);
+  font: 13px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", Roboto, sans-serif;
+}
+
+.popup { display: flex; flex-direction: column; gap: 12px; padding: 16px; }
+:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+
+.head { display: flex; align-items: center; gap: 10px; }
+.logo { border-radius: 6px; }
+.title-wrap { flex: 1; display: flex; flex-direction: column; }
+.title { font-size: 15px; font-weight: 700; }
+.version { font-size: 12px; color: var(--fg-muted); }
+
+.status {
+  display: inline-flex; align-items: center; gap: 6px;
+  height: 24px; padding: 0 10px; border-radius: 12px;
+  background: var(--surface); color: var(--fg-muted); font-size: 12px;
+}
+.status .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--border-strong); }
+.status.is-active { color: var(--fg); }
+.status.is-active .dot { background: var(--selected); }
+
+.btn-primary {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  height: 44px; border: none; border-radius: 8px;
+  background: var(--primary); color: #fff;
+  font: inherit; font-size: 14px; font-weight: 600; cursor: pointer;
+  transition: background-color 150ms ease;
+}
+.btn-primary:hover { background: var(--primary-hover); }
+.btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+.btn-primary.is-active { background: var(--surface); border: 1px solid var(--border-strong); }
+
+.shortcut { text-align: center; color: var(--fg-muted); font-size: 12px; }
+.error {
+  padding: 8px 10px; border-radius: 6px;
+  background: rgba(248, 113, 113, 0.12); border: 1px solid rgba(248, 113, 113, 0.4);
+  color: #fecaca; font-size: 12px;
+}
+
+.section-title { font-size: 12px; font-weight: 600; color: var(--fg-muted); margin-bottom: 8px; }
+.tips { list-style: none; display: grid; gap: 8px; }
+.tips li { display: flex; align-items: center; gap: 4px; font-size: 12px; }
+.tips li span { margin-left: 6px; color: #cbd5e1; }
+
+kbd {
+  display: inline-flex; align-items: center; height: 20px; padding: 0 6px;
+  border: 1px solid var(--border-strong); border-bottom-width: 2px; border-radius: 4px;
+  background: var(--surface); color: var(--fg);
+  font: 12px/1 "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  white-space: nowrap;
+}
+
+.foot { display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--border); padding-top: 10px; }
+.btn-link {
+  height: 28px; padding: 0 8px; border: none; border-radius: 4px;
+  background: transparent; color: var(--ring); font: inherit; font-size: 12px; cursor: pointer;
+}
+.btn-link:hover { background: var(--surface); }
+.log-count { font-size: 12px; color: var(--fg-muted); }
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+}

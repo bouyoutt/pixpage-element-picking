@@ -1,0 +1,91 @@
+# ==============================================================================
+# Git Ignore Rules for pixpage-element-picking (Chrome Extension MV3)
+# ==============================================================================
+
+# ------------------------------------------------------------------------------
+# 1. Operating System Files (macOS, Windows, Linux)
+# ------------------------------------------------------------------------------
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+[Dd]esktop.ini
+*~
+
+# ------------------------------------------------------------------------------
+# 2. Chrome Extension Distribution & Signing
+# ------------------------------------------------------------------------------
+# Packaged extensions & archives
+*.zip
+*.tar.gz
+*.crx
+
+# Extension private signing keys (CRITICAL: DO NOT COMMIT PRIVATE KEYS)
+*.pem
+
+# ------------------------------------------------------------------------------
+# 3. Node.js & Dependencies (Build tools / automated tests)
+# ------------------------------------------------------------------------------
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.pnpm-store/
+
+# ------------------------------------------------------------------------------
+# 4. Build Artifacts & Output
+# ------------------------------------------------------------------------------
+dist/
+build/
+out/
+.cache/
+
+# ------------------------------------------------------------------------------
+# 5. Editor & IDE Settings
+# ------------------------------------------------------------------------------
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# ------------------------------------------------------------------------------
+# 6. Environment & Secret Configurations
+# ------------------------------------------------------------------------------
+.env
+.env.local
+.env.*.local
+*.local
+
+# ------------------------------------------------------------------------------
+# 7. Logs & Temporary Files
+# ------------------------------------------------------------------------------
+*.log
+logs/
+tmp/
+temp/
+scratch/
+
+# Understand Anything generated knowledge graph and analysis cache
+.ua/
+
+# ------------------------------------------------------------------------------
+# 8. Project Internal Documentation & Configuration (NOT for public repo)
+# ------------------------------------------------------------------------------
+# Internal project guidelines and workflow documents
+AGENTS.md
+docs/CHANGELOG.md
+docs/HANDOFF-*.md
+docs/mvp_and_iterations.md
+docs/images/raw/
+package.sh

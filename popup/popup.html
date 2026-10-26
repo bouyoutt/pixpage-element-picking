@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PixPage 智能拾取助手</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <main class="popup">
+    <header class="head">
+      <img src="../icons/icon-48.png" alt="" class="logo" width="28" height="28">
+      <div class="title-wrap">
+        <h1 class="title">PixPage 拾取器</h1>
+        <span class="version" id="version"></span>
+      </div>
+      <span class="status" id="status" role="status">
+        <span class="dot"></span><span id="statusText">未启动</span>
+      </span>
+    </header>
+
+    <button class="btn-primary" id="btnToggle">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+      <span id="btnLabel">开始拾取</span>
+    </button>
+    <p class="shortcut">快捷键 <kbd>Alt</kbd> + <kbd>Shift</kbd> + <kbd>X</kbd></p>
+    <p class="error" id="error" role="alert" hidden></p>
+
+    <section>
+      <h2 class="section-title">操作方式</h2>
+      <ul class="tips">
+        <li><kbd>点击</kbd><span>加入拾取篮，再点一次移除</span></li>
+        <li><kbd>⌘/Ctrl</kbd><kbd>点击</kbd><span>不加入拾取篮，直接复制该元素</span></li>
+        <li><kbd>Enter</kbd><span>复制拾取篮的 AI Prompt</span></li>
+        <li><kbd>Space</kbd><span>暂停拾取，正常操作弹窗与菜单</span></li>
+        <li><kbd>Alt</kbd><span>按住时临时放行页面点击</span></li>
+        <li><kbd>Tab</kbd><kbd>↑</kbd><kbd>↓</kbd><span>穿透遮挡层 / 选父级 / 选子级</span></li>
+        <li><kbd>Esc</kbd><span>先折叠拾取篮，再按一次退出拾取</span></li>
+        <li><kbd>恢复上次</kbd><span>退出后再次开启，可恢复上次选择</span></li>
+      </ul>
+    </section>
+
+    <footer class="foot">
+      <button class="btn-link" id="btnDiag">复制诊断信息</button>
+      <span class="log-count" id="logCount"></span>
+    </footer>
+  </main>
+  <script src="popup.js"></script>
+</body>
+</html>
